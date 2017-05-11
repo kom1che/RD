@@ -201,6 +201,11 @@ void Anime::clickResume(){
                     setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
                 }
             }
+            if (syn == true){
+                syn = false;
+            } else {
+                syn = true;
+            }
     } else {
          move->stop();
          setStop(true);
