@@ -148,11 +148,13 @@ void Service::speedUp(){
 //        qDebug() << "Tres" << anime->getTres();
         ui->checkLow->setEnabled(true);
         anime->setTres(anime->getTres()*2);
-        keySpeed=false;
         kSpeed=0;
         PAUSE=false;
         anime->clickPause();
+        timers->stop();
+        keySpeed=false;
         anime->clickResume();
+        startTimers();
 //        qDebug() << "keySpeed" << keySpeed;
 //        qDebug() << "Tres" << anime->getTres();
     }else {
@@ -161,11 +163,13 @@ void Service::speedUp(){
         anime->setCheckSpeed(true);
         ui->checkLow->setEnabled(false);
         anime->setTres(anime->getTres()/2);
-        keySpeed=true;
         kSpeed=1;
         PAUSE=false;
         anime->clickPause();
+        timers->stop();
+        keySpeed=true;
         anime->clickResume();
+        startTimers();
         anime->setCheckSpeed(false);
 //        qDebug() << "keySpeed" << keySpeed;
 //        qDebug() << "Tres" << anime->getTres();
@@ -178,11 +182,13 @@ void Service::speedLow(){
 //        qDebug() << "Tres" << anime->getTres();
         ui->checkHigh->setEnabled(true);
         anime->setTres(anime->getTres()/2);
-        keySpeed=false;
         kSpeed=0;
         PAUSE=false;
         anime->clickPause();
+        timers->stop();
+        keySpeed=false;
         anime->clickResume();
+        startTimers();
 //        qDebug() << "keySpeed" << keySpeed;
 //        qDebug() << "Tres" << anime->getTres();
     }else {
@@ -191,11 +197,13 @@ void Service::speedLow(){
         anime->setCheckSpeed(true);
         ui->checkHigh->setEnabled(false);
         anime->setTres(anime->getTres()*2);
-        keySpeed=true;
         kSpeed=2;
         PAUSE=false;
         anime->clickPause();
+        timers->stop();
+        keySpeed=true;
         anime->clickResume();
+        startTimers();
         anime->setCheckSpeed(false);
 //        qDebug() << "keySpeed" << keySpeed;
 //        qDebug() << "Tres" << anime->getTres();
@@ -225,7 +233,7 @@ void Service:: startCount(){
     //qDebug() << "syn_pre" << syn_pre;
     if (syn_pre == anime->getSyn()){
        ui->timerLabal->setText(str);
-       //qDebug() << str;
+       qDebug() << str;
        s++;
        if (syn_pre == false){
            syn_pre = true;
