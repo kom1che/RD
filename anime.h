@@ -26,6 +26,7 @@ public slots:
     void clickPause();
     void clickResume();
     int getIter();
+    void setCheckSpeed(bool v);
     int getSize();
     int getStep();
     void setStep(int v);
@@ -55,6 +56,7 @@ private:
     bool pause;
     bool stop;
     bool syn;
+    bool check_speed;
     double pauseIT;
     double pauseX;
     double pauseY;

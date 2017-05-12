@@ -27,9 +27,10 @@ Service::Service(QWidget *parent) :
     PAUSE = false;
     times=0;
     keySpeed=false;
-    syn_pre = false;
+    syn_pre = true;
     kSpeed=0;
-    h=m=s=0;
+    h=m=0;
+    s=1;
     QObject::connect(ui->genBtn, SIGNAL(clicked(bool)), this, SLOT(setFpl()));
     QObject::connect(ui->runBtn, SIGNAL(clicked(bool)), this, SLOT(move()));
     QObject::connect(ui->pauseBtn, SIGNAL(clicked(bool)), this, SLOT(pause()));
@@ -157,6 +158,7 @@ void Service::speedUp(){
     }else {
 //        qDebug() << "keySpeed" << keySpeed;
 //        qDebug() << "Tres" << anime->getTres();
+        anime->setCheckSpeed(true);
         ui->checkLow->setEnabled(false);
         anime->setTres(anime->getTres()/2);
         keySpeed=true;
@@ -164,6 +166,7 @@ void Service::speedUp(){
         PAUSE=false;
         anime->clickPause();
         anime->clickResume();
+        anime->setCheckSpeed(false);
 //        qDebug() << "keySpeed" << keySpeed;
 //        qDebug() << "Tres" << anime->getTres();
     }
@@ -185,6 +188,7 @@ void Service::speedLow(){
     }else {
 //        qDebug() << "keySpeed" << keySpeed;
 //        qDebug() << "Tres" << anime->getTres();
+        anime->setCheckSpeed(true);
         ui->checkHigh->setEnabled(false);
         anime->setTres(anime->getTres()*2);
         keySpeed=true;
@@ -192,6 +196,7 @@ void Service::speedLow(){
         PAUSE=false;
         anime->clickPause();
         anime->clickResume();
+        anime->setCheckSpeed(false);
 //        qDebug() << "keySpeed" << keySpeed;
 //        qDebug() << "Tres" << anime->getTres();
     }
@@ -217,8 +222,10 @@ void Service:: startCount(){
     QTime time (h,m,s);
     QString str;
     str=time.toString("hh:mm:ss");
+    //qDebug() << "syn_pre" << syn_pre;
     if (syn_pre == anime->getSyn()){
        ui->timerLabal->setText(str);
+       //qDebug() << str;
        s++;
        if (syn_pre == false){
            syn_pre = true;
