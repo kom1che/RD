@@ -34,6 +34,7 @@ public slots:
     void setTres(int v);
     double getTime();
 private:
+    QGraphicsLineItem *line2;
     double X;
     bool key;
     double Y;
@@ -61,6 +62,7 @@ private:
     double pauseX;
     double pauseY;
     double pauseAn;
+    double  current_x, current_y;
 };
 
 #endif // ANIME

@@ -55,11 +55,17 @@ void Anime::startMove() {
             Y=Y+dyy;
             double deg = qDegreesToRadians(45.0);
             if (Y < yy[iter+1] && X < xx[iter+1]){
-                setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
+                current_x=X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2));
+                current_y=Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2));
+                //setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
             } else if (an < 0 && Y > yy[iter+1] && X < xx[iter+1]) {
-                setPos(X+7-(qCos(deg+angle)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(deg+angle)*size.height()*0.03/2*qSqrt(2)));
+                current_x=X+7-(qCos(deg+angle)*size.width()*0.03/2*qSqrt(2));
+                current_y=Y+7-(qSin(deg+angle)*size.height()*0.03/2*qSqrt(2));
+                //setPos(X+7-(qCos(deg+angle)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(deg+angle)*size.height()*0.03/2*qSqrt(2)));
             }else if (an == 0 && Y == yy[iter+1] && X < xx[iter+1]){
-                setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
+                current_x=X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2));
+                current_y=Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2));
+                //setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
             }else{
                 iter++;
                 if (iter < xx.size()-1) {
@@ -77,9 +83,24 @@ void Anime::startMove() {
                     setRotation(an);
                     X=X+dxx;
                     Y=Y+dyy;
-                    setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
+                    current_x=X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2));
+                    current_y=Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2));
+                    //setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
                 }
             }
+            line2 = new QGraphicsLineItem;
+            QPen _pen;
+            _pen.setColor(Qt::magenta);
+            _pen.setWidth(2.1);
+            _pen.setStyle(Qt::DashDotDotLine);
+            line2->setPen(_pen);
+//          line2->setLine(position_x, position_y,anime->getCurrent_x(),anime->getCurrent_y());
+//              scene->addItem(line2);
+//              anime->setPos(anime->getCurrent_x(), anime->getCurrent_y());
+//              position_x=anime->getCurrent_x();
+//              position_y=anime->getCurrent_y();
+
+          setPos(current_x,current_y);
           if (syn == true && check_speed == false){
               syn = false;
           } else if (syn == false && check_speed == false){
@@ -181,11 +202,17 @@ void Anime::clickResume(){
             Y=Y+dyy;
             double deg = qDegreesToRadians(45.0);
             if (Y < yy[iter+1] && X < xx[iter+1]){
-                setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
+                current_x=X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2));
+                current_y=Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2));
+                //setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
             } else if (an < 0 && Y > yy[iter+1] && X < xx[iter+1]) {
-                setPos(X+7-(qCos(deg+angle)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(deg+angle)*size.height()*0.03/2*qSqrt(2)));
+                current_x=X+7-(qCos(deg+angle)*size.width()*0.03/2*qSqrt(2));
+                current_y=Y+7-(qSin(deg+angle)*size.height()*0.03/2*qSqrt(2));
+                //setPos(X+7-(qCos(deg+angle)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(deg+angle)*size.height()*0.03/2*qSqrt(2)));
             }else if (an == 0 && Y == yy[iter+1] && X < xx[iter+1]){
-                setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
+                current_x=X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2));
+                current_y=Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2));
+                //setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
             }else{
                 iter++;
                 if (iter < xx.size()-1) {
@@ -203,9 +230,12 @@ void Anime::clickResume(){
                     setRotation(an);
                     X=X+dxx;
                     Y=Y+dyy;
-                    setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
+                    current_x=X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2));
+                    current_y=Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2));
+                    //setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
                 }
             }
+          setPos(current_x,current_y);
             if (syn == true && check_speed == false){
                 syn = false;
             } else if (syn == false && check_speed == false){

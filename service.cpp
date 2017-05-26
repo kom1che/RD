@@ -261,12 +261,5 @@ void Service:: startCount(){
         ui->checkHigh->setEnabled(false);
         ui->checkLow->setEnabled(false);
     }
-    QPen _pen;
-    _pen.setColor(Qt::red);
-    _pen.setWidth(1.5);
-    _pen.setStyle(Qt::DashDotDotLine);
-    line->setPen(_pen);
-    //line->setLine(valuex[j]+7, valuey[j]+7,valuex[j+1]+7,valuey[j+1]+7);
-    scene->addItem(line);
 }
 
