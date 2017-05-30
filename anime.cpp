@@ -22,6 +22,15 @@ Anime::Anime(QGraphicsPathItem *parent) {
     key=false;
     check_first_iter = true;
     X = Y = 0;
+    label2 = new QGraphicsTextItem;
+    label2->setDefaultTextColor("purple");
+    label2->setFont(QFont("gothic",6.5));
+    label3 = new QGraphicsTextItem;
+    label3->setDefaultTextColor("purple");
+    label3->setFont(QFont("gothic",6.5));
+    label4 = new QGraphicsTextItem;
+    label4->setDefaultTextColor("purple");
+    label4->setFont(QFont("gothic",6.5));
 }
 
 void Anime:: startTimer(){
@@ -91,6 +100,12 @@ void Anime::startMove() {
                 }
             }
             line2 = new QGraphicsLineItem;
+            label2->setPlainText("current x: ");
+            label2->setPos(X-30, Y+15);
+            label3->setPlainText("current y: ");
+            label3->setPos(X-30, Y+22);
+            label4->setPlainText("altitude: ");
+            label4->setPos(X-30, Y+29);
             QPen _pen;
             _pen.setColor("darkblue");
             _pen.setWidth(2);

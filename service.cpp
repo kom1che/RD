@@ -111,6 +111,9 @@ void Service::move(){
     anime->startMove();
     startTimers();
     scene->addItem(anime);
+    scene->addItem(anime->label2);
+    scene->addItem(anime->label3);
+    scene->addItem(anime->label4);
     ui->runBtn->setEnabled(false);
     ui->pauseBtn->setEnabled(true);
     ui->genBtn->setEnabled(false);

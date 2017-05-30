@@ -12,9 +12,12 @@ class Anime: public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
     Anime(QGraphicsPathItem * parent=0);
-    void setXY(QList<int> XX, QList<int> YY);
+    QGraphicsTextItem *label2;
+    QGraphicsTextItem *label3;
+    QGraphicsTextItem *label4;
 
 public slots:
+    void setXY(QList<int> XX, QList<int> YY);
     void startTimer();
     void startMove();
     void setPause(bool v);
