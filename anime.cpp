@@ -24,13 +24,13 @@ Anime::Anime(QGraphicsPathItem *parent) {
     X = Y = 0;
     label2 = new QGraphicsTextItem;
     label2->setDefaultTextColor("purple");
-    label2->setFont(QFont("gothic",8));
+    label2->setFont(QFont("gothic",7.5));
     label3 = new QGraphicsTextItem;
     label3->setDefaultTextColor("purple");
-    label3->setFont(QFont("gothic",8));
+    label3->setFont(QFont("gothic",7.5));
     label4 = new QGraphicsTextItem;
     label4->setDefaultTextColor("purple");
-    label4->setFont(QFont("gothic",8));
+    label4->setFont(QFont("gothic",7.5));
 }
 
 void Anime:: startTimer(){
@@ -100,12 +100,6 @@ void Anime::startMove() {
                 }
             }
             line2 = new QGraphicsLineItem;
-            label2->setPlainText("current x: ");
-            label2->setPos(X-64, Y+7);
-            label3->setPlainText("current y: ");
-            label3->setPos(X-64, Y+17);
-            label4->setPlainText("altitude: ");
-            label4->setPos(X-64, Y+27);
             QPen _pen;
             _pen.setColor("darkblue");
             _pen.setWidth(2);
@@ -118,6 +112,12 @@ void Anime::startMove() {
             } else {
                 line2->setLine(position_x, position_y,X+7,Y+7);
                 scene()->addItem(line2);
+                label2->setPlainText("current x: "+QString::number(position_x-7, 'g', 3));
+                label2->setPos(position_x-70, position_y+4);
+                label3->setPlainText("current y: "+QString::number(position_y-7, 'g', 3));
+                label3->setPos(position_x-70, position_y+14);
+                label4->setPlainText("altitude: ");
+                label4->setPos(position_x-70, position_y+24);
                 position_x = X+7;
                 position_y = Y+7;
             }
