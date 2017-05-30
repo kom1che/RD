@@ -112,9 +112,9 @@ void Anime::startMove() {
             } else {
                 line2->setLine(position_x, position_y,X+7,Y+7);
                 scene()->addItem(line2);
-                label2->setPlainText("current x: "+QString::number(position_x-7, 'g', 3));
+                label2->setPlainText("current x: "+QString::number((position_x-5)/2.38, 'g', 3));
                 label2->setPos(position_x-70, position_y+4);
-                label3->setPlainText("current y: "+QString::number(position_y-7, 'g', 3));
+                label3->setPlainText("current y: "+QString::number((position_y-5)/2.38, 'g', 3));
                 label3->setPos(position_x-70, position_y+14);
                 label4->setPlainText("altitude: ");
                 label4->setPos(position_x-70, position_y+24);
