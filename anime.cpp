@@ -20,6 +20,7 @@ Anime::Anime(QGraphicsPathItem *parent) {
     Tres=1000;
     time=0;
     key=false;
+    check_first_iter = true;
 }
 
 void Anime:: startTimer(){
@@ -90,16 +91,20 @@ void Anime::startMove() {
             }
             line2 = new QGraphicsLineItem;
             QPen _pen;
-            _pen.setColor(Qt::magenta);
-            _pen.setWidth(2.1);
-            _pen.setStyle(Qt::DashDotDotLine);
+            _pen.setColor("darkblue");
+            _pen.setWidth(2);
+            _pen.setStyle(Qt::SolidLine);
             line2->setPen(_pen);
-//          line2->setLine(position_x, position_y,anime->getCurrent_x(),anime->getCurrent_y());
-//              scene->addItem(line2);
-//              anime->setPos(anime->getCurrent_x(), anime->getCurrent_y());
-//              position_x=anime->getCurrent_x();
-//              position_y=anime->getCurrent_y();
-
+            if (check_first_iter) {
+                position_x = X+7;
+                position_y = Y+7;
+                check_first_iter = false;
+            } else {
+                line2->setLine(position_x, position_y,X+7,Y+7);
+                scene()->addItem(line2);
+                position_x = X+7;
+                position_y = Y+7;
+            }
           setPos(current_x,current_y);
           if (syn == true && check_speed == false){
               syn = false;

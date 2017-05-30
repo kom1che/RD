@@ -62,7 +62,9 @@ private:
     double pauseX;
     double pauseY;
     double pauseAn;
-    double  current_x, current_y;
+    double current_x, current_y;
+    double position_x, position_y;
+    bool check_first_iter;
 };
 
 #endif // ANIME

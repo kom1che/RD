@@ -83,7 +83,7 @@ void Service::setFpl(){
     for (size_t j=0, m=valuex.size()-1;j<m; j++) {
         line = new QGraphicsLineItem;
         QPen _pen;
-        _pen.setColor(Qt::blue);
+        _pen.setColor("lightskyblue");
         _pen.setWidth(2);
         _pen.setStyle(Qt::DashLine);
         line->setPen(_pen);
