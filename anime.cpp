@@ -21,6 +21,7 @@ Anime::Anime(QGraphicsPathItem *parent) {
     time=0;
     key=false;
     check_first_iter = true;
+    X = Y = 0;
 }
 
 void Anime:: startTimer(){
