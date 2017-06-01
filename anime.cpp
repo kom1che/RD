@@ -52,6 +52,18 @@ void Anime:: setXY(QList<int> XX, QList<int> YY){
     }
 }
 
+void Anime:: setAlt(QList<int> ALT){
+    foreach (int alt, ALT) {
+        altitude.append(alt);
+    }
+}
+
+void Anime:: setMandat(QList<bool> MANDAT){
+    foreach (bool man, MANDAT) {
+        mandat.append(man);
+    }
+}
+
 void Anime::startMove() {
     QSize size = QPixmap(":/images/aircraft_1_1.png").size();
     if (iter < xx.size()-1){
@@ -65,6 +77,30 @@ void Anime::startMove() {
             X=X+dxx;
             Y=Y+dyy;
             double deg = qDegreesToRadians(45.0);
+            line2 = new QGraphicsLineItem;
+            QPen _pen;
+            _pen.setColor("darkblue");
+            _pen.setWidth(2);
+            _pen.setStyle(Qt::SolidLine);
+            line2->setPen(_pen);
+            if (check_first_iter) {
+                position_x = X+7;
+                position_y = Y+7;
+                check_first_iter = false;
+            } else {
+                line2->setLine(position_x, position_y,X+7,Y+7);
+                scene()->addItem(line2);
+                label2->setPlainText("current x: "+QString::number((position_x-7)/SCALEX, 'g', 3));
+                label2->setPos(position_x-70, position_y+4);
+                label3->setPlainText("current y: "+QString::number((position_y-7)/SCALEX, 'g', 3));
+                label3->setPos(position_x-70, position_y+14);
+                label4->setPos(position_x-70, position_y+24);
+                double deltaxn = qFabs(((position_x-7)/SCALEX)-(qCeil(xx[iter]/SCALEX)))/qFabs(qCeil(xx[iter+1]/SCALEX)-qCeil(xx[iter]/SCALEX));
+                int hn = ((altitude[iter+1]-altitude[iter])*deltaxn)+altitude[iter];
+                label4->setPlainText("altitude: "+QString::number(hn));
+                position_x = X+7;
+                position_y = Y+7;
+            }
             if (Y < yy[iter+1] && X < xx[iter+1]){
                 current_x=X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2));
                 current_y=Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2));
@@ -99,28 +135,6 @@ void Anime::startMove() {
                     //setPos(X+7-(qCos(angle+deg)*size.width()*0.03/2*qSqrt(2)),Y+7-(qSin(angle+deg)*size.height()*0.03/2*qSqrt(2)));
                 }
             }
-            line2 = new QGraphicsLineItem;
-            QPen _pen;
-            _pen.setColor("darkblue");
-            _pen.setWidth(2);
-            _pen.setStyle(Qt::SolidLine);
-            line2->setPen(_pen);
-            if (check_first_iter) {
-                position_x = X+7;
-                position_y = Y+7;
-                check_first_iter = false;
-            } else {
-                line2->setLine(position_x, position_y,X+7,Y+7);
-                scene()->addItem(line2);
-                label2->setPlainText("current x: "+QString::number((position_x-5)/SCALEX, 'g', 3));
-                label2->setPos(position_x-70, position_y+4);
-                label3->setPlainText("current y: "+QString::number((position_y-5)/SCALEX, 'g', 3));
-                label3->setPos(position_x-70, position_y+14);
-                label4->setPlainText("altitude: ");
-                label4->setPos(position_x-70, position_y+24);
-                position_x = X+7;
-                position_y = Y+7;
-            }
           setPos(current_x,current_y);
           if (syn == true && check_speed == false){
               syn = false;
@@ -128,6 +142,7 @@ void Anime::startMove() {
               syn = true;
           }
     } else {
+         label4->setPlainText("altitude: "+QString::number(altitude[iter]));
          move->stop();
          setStop(true);
          key=true;
@@ -151,11 +166,11 @@ bool Anime::getSyn(){
 return syn;
 }
 
-void Anime::setStep(int v){
+void Anime::setStep(double v){
     step = v;
 }
 
-int Anime::getStep(){
+double Anime::getStep(){
 return step;
 }
 

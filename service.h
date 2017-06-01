@@ -43,6 +43,8 @@ private:
     QGraphicsLineItem *line;
     QList<int> valuex;
     QList<int> valuey;
+    QList<int> valuealt;
+    QList<bool> valuemandat;
     QTimer *timer;
     QTime time;
     QTimer *timers;

@@ -18,6 +18,8 @@ public:
 
 public slots:
     void setXY(QList<int> XX, QList<int> YY);
+    void setAlt(QList<int> ALT);
+    void setMandat(QList<bool> MANDAT);
     void startTimer();
     void startMove();
     void setPause(bool v);
@@ -31,8 +33,8 @@ public slots:
     int getIter();
     void setCheckSpeed(bool v);
     int getSize();
-    int getStep();
-    void setStep(int v);
+    double getStep();
+    void setStep(double v);
     int getTres();
     void setTres(int v);
     double getTime();
@@ -43,7 +45,7 @@ private:
     double X;
     bool key;
     double Y;
-    int step;
+    double step;
     int Tres;
     int iter;
     double time;
@@ -53,6 +55,8 @@ private:
     double deg;
     QList<int> xx;
     QList<int> yy;
+    QList<int> altitude;
+    QList<bool> mandat;
     QList<double> l;
     bool check;
     QTimer *move;

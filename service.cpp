@@ -62,8 +62,12 @@ void Service::setFpl(){
         anime->setScaleX(2.38);
         int valueX = FPL->getxCoor().value(searchName)*anime->getScaleX();
         int valueY = FPL->getyCoor().value(searchName)*anime->getScaleX();
+        int valueAlt = FPL->getAlt().value(searchName);
+        bool valueMan = FPL->getMandat().value(searchName);
         valuex.append(valueX);
         valuey.append(valueY);
+        valuealt.append(valueAlt);
+        valuemandat.append(valueMan);
     }
     for (size_t i=0, n=valuex.size(); i<n; i++) {
         pointIcon = new QGraphicsPixmapItem();
@@ -109,6 +113,8 @@ void Service::move(){
     anime->setStep(1);
     anime->setTres(500);
     anime->setXY(valuex, valuey);
+    anime->setAlt(valuealt);
+    anime->setMandat(valuemandat);
     anime->startTimer();
     anime->startMove();
     startTimers();
