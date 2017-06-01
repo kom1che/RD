@@ -16,6 +16,7 @@ Service::Service(QWidget *parent) :
     ui->rejectBtn->setEnabled(false);
     ui->submitBtn->setEnabled(false);
     ui->runBtn->setEnabled(false);
+    ui->SpeedSlider->setEnabled(false);
     scene = new QGraphicsScene(this);
     scene->setSceneRect(-20,-20,310,310);
     chart = new QGraphicsPixmapItem();
@@ -127,6 +128,7 @@ void Service::move(){
     ui->genBtn->setEnabled(false);
     ui->checkHigh->setEnabled(true);
     ui->checkLow->setEnabled(true);
+    ui->SpeedSlider->setEnabled(true);
 }
 
 void Service::pause(){
@@ -272,5 +274,15 @@ void Service:: startCount(){
         ui->checkHigh->setEnabled(false);
         ui->checkLow->setEnabled(false);
     }
+}
+
+void Service::mousePressEvent(QMouseEvent *event) {
+    int squarex = qCeil((anime->pos().x()))+72;
+    int squarey = qCeil((anime->pos().y()))+64;
+    if (event->button() == Qt::RightButton && (event->pos().x() > squarex-10 && event->pos().x() < squarex+10) && (event->pos().y() > squarey-10 && event->pos().y() < squarey+10)){
+       qDebug() << "click";
+
+    }
+
 }
 

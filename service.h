@@ -10,6 +10,7 @@
 #include <QTimer>
 #include <QTime>
 #include <QObject>
+#include <QMouseEvent>
 class Anime;
 
 namespace Ui {
@@ -34,6 +35,7 @@ public slots:
     void setPause(bool v);
     void startTimers();
     void startCount();
+    void mousePressEvent(QMouseEvent *event);
 private:
     Ui::Service *ui;
     QGraphicsScene *scene;
