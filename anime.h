@@ -36,6 +36,8 @@ public slots:
     int getTres();
     void setTres(int v);
     double getTime();
+    void setScaleX(double v);
+    double getScaleX();
 private:
     QGraphicsLineItem *line2;
     double X;
@@ -68,6 +70,7 @@ private:
     double current_x, current_y;
     double position_x, position_y;
     bool check_first_iter;
+    double SCALEX;
 };
 
 #endif // ANIME

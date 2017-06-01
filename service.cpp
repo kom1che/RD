@@ -54,12 +54,14 @@ void Service::setFpl(){
     chart->setOpacity(0.55);
     scene->addItem(chart);
     originFpl *FPL = new originFpl();
+    anime = new Anime();
     for (size_t i=0; i<12; i++) {
         QString searchName;
         searchName = QString("W")+QString::number(i);
-        double SCALE = 2.38;
-        int valueX = FPL->getxCoor().value(searchName)*SCALE;
-        int valueY = FPL->getyCoor().value(searchName)*SCALE;
+        //double SCALE = 2.38;
+        anime->setScaleX(2.38);
+        int valueX = FPL->getxCoor().value(searchName)*anime->getScaleX();
+        int valueY = FPL->getyCoor().value(searchName)*anime->getScaleX();
         valuex.append(valueX);
         valuey.append(valueY);
     }
@@ -103,7 +105,7 @@ void Service::setSim(){
 }
 
 void Service::move(){
-    anime = new Anime();
+    //anime = new Anime();
     anime->setStep(1);
     anime->setTres(500);
     anime->setXY(valuex, valuey);

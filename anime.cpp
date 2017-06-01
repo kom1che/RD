@@ -112,9 +112,9 @@ void Anime::startMove() {
             } else {
                 line2->setLine(position_x, position_y,X+7,Y+7);
                 scene()->addItem(line2);
-                label2->setPlainText("current x: "+QString::number((position_x-5)/2.38, 'g', 3));
+                label2->setPlainText("current x: "+QString::number((position_x-5)/SCALEX, 'g', 3));
                 label2->setPos(position_x-70, position_y+4);
-                label3->setPlainText("current y: "+QString::number((position_y-5)/2.38, 'g', 3));
+                label3->setPlainText("current y: "+QString::number((position_y-5)/SCALEX, 'g', 3));
                 label3->setPos(position_x-70, position_y+14);
                 label4->setPlainText("altitude: ");
                 label4->setPos(position_x-70, position_y+24);
@@ -139,6 +139,10 @@ void Anime::setPause(bool v){
     pause = v;
 }
 
+void Anime::setScaleX(double v){
+    SCALEX = v;
+}
+
 bool Anime::getPause(){
 return pause;
 }
@@ -157,6 +161,10 @@ return step;
 
 void Anime::setTres(int v){
     Tres = v;
+}
+
+double Anime::getScaleX(){
+return SCALEX;
 }
 
 void Anime::setCheckSpeed(bool v){
