@@ -38,6 +38,7 @@ Service::Service(QWidget *parent) :
     QObject::connect(ui->pauseBtn, SIGNAL(clicked(bool)), this, SLOT(pause()));
     QObject::connect(ui->checkHigh, SIGNAL(toggled(bool)), this, SLOT(speedUp()));
     QObject::connect(ui->checkLow, SIGNAL(toggled(bool)), this, SLOT(speedLow()));
+    QObject::connect(ui->SpeedSlider, SIGNAL(valueChanged(int)), this, SLOT(speedChan(int)));
 }
 
 Service::~Service()
@@ -112,7 +113,7 @@ void Service::setSim(){
 
 void Service::move(){
     //anime = new Anime();
-    anime->setStep(1);
+    //anime->setStep(1);
     anime->setTres(500);
     anime->setXY(valuex, valuey);
     anime->setAlt(valuealt);
@@ -234,6 +235,10 @@ void Service::comboAct()
     combo->deleteLater();
 }
 
+void Service::speedChan(int v) {
+    anime->setStep(double(v)/2);
+}
+
 void Service::resume(){
     timer->start();
 
@@ -286,23 +291,27 @@ void Service:: startCount(){
         ui->checkLow->setEnabled(false);
         ui->checkHigh->setChecked(false);
         ui->checkLow->setChecked(false);
+        ui->SpeedSlider->setValue(0);
+        ui->SpeedSlider->setEnabled(false);
     }
 }
 
 void Service::mousePressEvent(QMouseEvent *event) {
-    int squarex = qCeil((anime->pos().x()))+72;
-    int squarey = qCeil((anime->pos().y()))+64;
-    if (event->button() == Qt::RightButton && (event->pos().x() > squarex-10 && event->pos().x() < squarex+10) && (event->pos().y() > squarey-10 && event->pos().y() < squarey+10)){
-        combo = new QComboBox();
-        combo->addItem("Feet");
-        combo->addItem("Meter");
-        QFont font ("Century Gothic");
-        font.setPointSize(7);
-        font.setWeight(QFont::Bold);
-        combo->setFont(font);
-        combo->setGeometry(anime->pos().x()+15,anime->pos().y()+5,60,25);
-        ui->Viewer->scene()->addWidget(combo);
-        QObject::connect(combo, SIGNAL(activated(int)), this, SLOT(comboAct()));
+    if (ui->pauseBtn->isEnabled()) {
+        int squarex = qCeil((anime->pos().x()))+72;
+        int squarey = qCeil((anime->pos().y()))+64;
+        if (event->button() == Qt::RightButton && (event->pos().x() > squarex-10 && event->pos().x() < squarex+10) && (event->pos().y() > squarey-10 && event->pos().y() < squarey+10)){
+            combo = new QComboBox();
+            combo->addItem("Feet");
+            combo->addItem("Meter");
+            QFont font ("Century Gothic");
+            font.setPointSize(7);
+            font.setWeight(QFont::Bold);
+            combo->setFont(font);
+            combo->setGeometry(anime->pos().x()+15,anime->pos().y()+5,60,25);
+            ui->Viewer->scene()->addWidget(combo);
+            QObject::connect(combo, SIGNAL(activated(int)), this, SLOT(comboAct()));
+        }
     }
 }
 

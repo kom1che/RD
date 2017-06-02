@@ -33,6 +33,7 @@ public slots:
     void speedUp();
     void speedLow();
     void comboAct();
+    void speedChan(int v);
     void resume();
     void setPause(bool v);
     void startTimers();

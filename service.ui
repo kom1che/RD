@@ -228,6 +228,15 @@
      <height>29</height>
     </rect>
    </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>10</number>
+   </property>
+   <property name="pageStep">
+    <number>0</number>
+   </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>

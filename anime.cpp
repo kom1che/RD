@@ -17,7 +17,7 @@ Anime::Anime(QGraphicsPathItem *parent) {
     syn = false;
     checkAlt = true;
     iter=0;
-    step=4;
+    step=0.5;
     Tres=1000;
     time=0;
     key=false;
