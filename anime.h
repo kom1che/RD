@@ -37,6 +37,7 @@ public slots:
     void setStep(double v);
     int getTres();
     void setTres(int v);
+    void setAlt(bool v);
     double getTime();
     void setScaleX(double v);
     double getScaleX();
@@ -75,6 +76,7 @@ private:
     double position_x, position_y;
     bool check_first_iter;
     double SCALEX;
+    bool checkAlt;
 };
 
 #endif // ANIME

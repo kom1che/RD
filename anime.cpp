@@ -15,6 +15,7 @@ Anime::Anime(QGraphicsPathItem *parent) {
     pause = false;
     stop = false;
     syn = false;
+    checkAlt = true;
     iter=0;
     step=4;
     Tres=1000;
@@ -97,7 +98,11 @@ void Anime::startMove() {
                 label4->setPos(position_x-70, position_y+24);
                 double deltaxn = qFabs(((position_x-7)/SCALEX)-(qCeil(xx[iter]/SCALEX)))/qFabs(qCeil(xx[iter+1]/SCALEX)-qCeil(xx[iter]/SCALEX));
                 int hn = ((altitude[iter+1]-altitude[iter])*deltaxn)+altitude[iter];
-                label4->setPlainText("altitude: "+QString::number(hn));
+                if (checkAlt) {
+                    label4->setPlainText("altitude: "+QString::number(hn)+" m");
+                } else {
+                    label4->setPlainText("altitude: FL "+QString::number(qCeil(hn*3.2808399/100)));
+                }
                 position_x = X+7;
                 position_y = Y+7;
             }
@@ -176,6 +181,11 @@ return step;
 
 void Anime::setTres(int v){
     Tres = v;
+}
+
+void Anime::setAlt(bool v)
+{
+    checkAlt = v;
 }
 
 double Anime::getScaleX(){

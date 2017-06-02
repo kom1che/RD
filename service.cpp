@@ -226,6 +226,11 @@ void Service::speedLow(){
 
 void Service::comboAct()
 {
+    if (combo->currentText() == "Feet") {
+       anime->setAlt(false);
+    } else {
+        anime->setAlt(true);
+    }
     combo->deleteLater();
 }
 
@@ -279,6 +284,8 @@ void Service:: startCount(){
         ui->pauseBtn->setEnabled(false);
         ui->checkHigh->setEnabled(false);
         ui->checkLow->setEnabled(false);
+        ui->checkHigh->setChecked(false);
+        ui->checkLow->setChecked(false);
     }
 }
 
@@ -289,17 +296,13 @@ void Service::mousePressEvent(QMouseEvent *event) {
         combo = new QComboBox();
         combo->addItem("Feet");
         combo->addItem("Meter");
-        //combo->setStyleSheet("*{background-color: rgb(232, 232, 88);}");
         QFont font ("Century Gothic");
         font.setPointSize(7);
         font.setWeight(QFont::Bold);
         combo->setFont(font);
-        //combo->setGeometry();
-        //combo->setGeometry(10,10,30,30);
-        //combo->setPalette(QPalette::color("*{background-color: rgb(232, 232, 88);}"));
+        combo->setGeometry(anime->pos().x()+15,anime->pos().y()+5,60,25);
         ui->Viewer->scene()->addWidget(combo);
         QObject::connect(combo, SIGNAL(activated(int)), this, SLOT(comboAct()));
-
     }
 }
 
