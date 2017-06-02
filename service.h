@@ -11,6 +11,7 @@
 #include <QTime>
 #include <QObject>
 #include <QMouseEvent>
+#include <QComboBox>
 class Anime;
 
 namespace Ui {
@@ -31,6 +32,7 @@ public slots:
     void pause();
     void speedUp();
     void speedLow();
+    void comboAct();
     void resume();
     void setPause(bool v);
     void startTimers();
@@ -62,6 +64,7 @@ private:
     double times;
     QGraphicsTextItem *label;
     Anime *anime;
+    QComboBox *combo;
 };
 
 #endif // SERVICE_H
