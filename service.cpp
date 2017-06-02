@@ -50,6 +50,9 @@ void Service::setFpl(){
     scene->clear();
     valuex.clear();
     valuey.clear();
+    listLine.clear();
+    listPoint.clear();
+    listLabel.clear();
     chart = new QGraphicsPixmapItem();
     chart->setPixmap(QPixmap(":/images/chart.png"));
     chart->setPos(-60,-110);
@@ -77,7 +80,8 @@ void Service::setFpl(){
         pointIcon->setPixmap(QPixmap(":/images/3ang.png"));
         pointIcon->setScale(0.07);
         pointIcon->setPos(valuex[i], valuey[i]);
-        scene->addItem(pointIcon);
+        listPoint.append(pointIcon);
+        scene->addItem(listPoint[i]);
         QString str;
         for (int j=0; j<3; j++) {
             str[j]=QChar('A' + char(qrand() % ('Z'-'A')));
@@ -87,17 +91,20 @@ void Service::setFpl(){
         label->setDefaultTextColor(Qt::black);
         label->setFont(QFont("gothic",7));
         label->setPos(valuex[i]+10, valuey[i]-10);
-        scene->addItem(label);
+        listLabel.append(label);
+        scene->addItem(listLabel[i]);
     }
     for (size_t j=0, m=valuex.size()-1;j<m; j++) {
         line = new QGraphicsLineItem;
-        QPen _pen;
+        //QPen _pen;
         _pen.setColor("lightskyblue");
         _pen.setWidth(2);
         _pen.setStyle(Qt::DashLine);
         line->setPen(_pen);
         line->setLine(valuex[j]+7, valuey[j]+7,valuex[j+1]+7,valuey[j+1]+7);
-        scene->addItem(line);
+        listLine.append(line);
+        scene->addItem(listLine[j]);
+        //scene->addItem(line);
     }
     ui->runBtn->setEnabled(true);
     //QObject::connect(ui->runBtn, SIGNAL(clicked(bool)), this, SLOT(setSim()));
@@ -233,6 +240,23 @@ void Service::comboAct()
         anime->setAlt(true);
     }
     combo->deleteLater();
+
+
+
+//    scene->removeItem(listLine[4]);
+//    scene->removeItem(listPoint[5]);
+//    scene->removeItem(listPoint[4]);
+//    scene->removeItem(listLabel[5]);
+//    scene->removeItem(listLabel[4]);
+//    _pen.setColor("green");
+//    _pen.setStyle(Qt::DotLine);
+//    listLine[4]->setPen(_pen);
+//    scene->addItem(listLine[4]);
+
+
+
+
+
 }
 
 void Service::speedChan(int v) {

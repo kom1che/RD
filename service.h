@@ -50,6 +50,9 @@ private:
     QList<int> valuey;
     QList<int> valuealt;
     QList<bool> valuemandat;
+    QList<QGraphicsLineItem *> listLine;
+    QList<QGraphicsPixmapItem *> listPoint;
+    QList<QGraphicsTextItem *> listLabel;
     QTimer *timer;
     QTime time;
     QTimer *timers;
@@ -66,6 +69,7 @@ private:
     QGraphicsTextItem *label;
     Anime *anime;
     QComboBox *combo;
+    QPen _pen;
 };
 
 #endif // SERVICE_H
