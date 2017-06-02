@@ -317,6 +317,8 @@ void Service:: startCount(){
         ui->checkLow->setChecked(false);
         ui->SpeedSlider->setValue(0);
         ui->SpeedSlider->setEnabled(false);
+        h=m=s=0;
+        ui->timerLabal->setText(str);
     }
 }
 
