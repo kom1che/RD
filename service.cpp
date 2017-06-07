@@ -28,12 +28,13 @@ Service::Service(QWidget *parent) :
     ui->Viewer->setScene(scene);
     PAUSE = false;
     times=0;
-    keySpeed=false;
+    keySpeed = checkCopy = checkSub =false;
     syn_pre = true;
     kSpeed=0;
     h=m=0;
     s=1;
     QObject::connect(ui->genBtn, SIGNAL(clicked(bool)), this, SLOT(setFpl()));
+    QObject::connect(ui->submitBtn, SIGNAL(clicked(bool)), this, SLOT(RD()));
     QObject::connect(ui->runBtn, SIGNAL(clicked(bool)), this, SLOT(move()));
     QObject::connect(ui->pauseBtn, SIGNAL(clicked(bool)), this, SLOT(pause()));
     QObject::connect(ui->checkHigh, SIGNAL(toggled(bool)), this, SLOT(speedUp()));
@@ -138,6 +139,71 @@ void Service::move(){
     ui->checkHigh->setEnabled(true);
     ui->checkLow->setEnabled(true);
     ui->SpeedSlider->setEnabled(true);
+}
+
+void Service::copyFpl(QList<int> AA, QList<int> BB, QList<int> CC, QList<bool> DD){
+        foreach (int coor, AA) {
+            copyx.append(coor);
+        }
+        foreach (int coor, BB) {
+            copyy.append(coor);
+        }
+        foreach (int alt, CC) {
+            copyalt.append(alt);
+        }
+        foreach (bool man, DD) {
+            copymandat.append(man);
+        }
+        checkCopy = true;
+}
+
+void Service::RD(){
+    if (checkCopy == false){
+    copyFpl(valuex, valuey, valuealt, valuemandat);
+    //qDebug() << anime->getIter();
+    }
+    for (size_t i=0; i<copyx.size(); i++){
+        //qDebug() << "x" << copyx[i] << "y" << copyy[i] << "alt" << copyalt[i] << "Mandat" << copymandat[i];
+    }
+    int current = anime->getIter();
+    for (size_t j=current+1; j<copyx.size()-4; j++){
+        double p = setP(2);
+        //qDebug() << "j" << j << "p" << p;
+        if (p < 0.25) {
+           qDebug() << "j" << j << "p" << p << "stop";
+           ui->acceptBtn->setEnabled(true);
+           ui->rejectBtn->setEnabled(true);
+           ui->submitBtn->setEnabled(false);
+           checkSub = true;
+           break;
+        }
+    }
+    if (checkSub == false) {
+        qDebug() << "Oops!";
+        checkSub = false;
+    }
+//    if (anime->getIter()>=8){
+//        timerRD->stop();
+//        //qDebug() << "Service TimerRD stops";
+//    }else {
+//        int current = anime->getIter();
+//        //qDebug() << "current" << current << "next" << next;
+//        for (size_t j=current+1; j<copyx.size()-4; j++){
+//            double p = setP(2);
+//            //qDebug() << "j" << j << "p" << p;
+//            if (p < 0.25) {
+//                qDebug() << "j" << j << "p" << p << "stop";
+//                timerRD->stop();
+//                ui->acceptBtn->setEnabled(true);
+//                ui->rejectBtn->setEnabled(true);
+//                ui->submitBtn->setEnabled(false);
+//                checkSub = true;
+//                break;
+//            }
+//        }
+//    }
+
+
 }
 
 void Service::pause(){
@@ -320,6 +386,19 @@ void Service:: startCount(){
         h=m=s=0;
         ui->timerLabal->setText(str);
     }
+    if (anime->getIter()>=1 && anime->getIter()<10 && checkSub == false){
+        ui->submitBtn->setEnabled(true);
+    }else{
+        ui->submitBtn->setEnabled(false);
+        ui->acceptBtn->setEnabled(false);
+        ui->rejectBtn->setEnabled(false);
+    }
+}
+
+double Service::setP(int v){
+    double p = 0;
+    p = (qrand() % int (qPow(10, v) + 1))/qPow(10, v);
+    return p;
 }
 
 void Service::mousePressEvent(QMouseEvent *event) {

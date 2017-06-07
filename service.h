@@ -29,6 +29,8 @@ public slots:
     void setFpl();
     void setSim();
     void move();
+    void copyFpl(QList<int> AA, QList<int> BB, QList<int> CC, QList<bool> DD);
+    void RD();
     void pause();
     void speedUp();
     void speedLow();
@@ -38,6 +40,7 @@ public slots:
     void setPause(bool v);
     void startTimers();
     void startCount();
+    double setP(int v);
     void mousePressEvent(QMouseEvent *event);
 private:
     Ui::Service *ui;
@@ -50,6 +53,10 @@ private:
     QList<int> valuey;
     QList<int> valuealt;
     QList<bool> valuemandat;
+    QList<int> copyx;
+    QList<int> copyy;
+    QList<int> copyalt;
+    QList<bool> copymandat;
     QList<QGraphicsLineItem *> listLine;
     QList<QGraphicsPixmapItem *> listPoint;
     QList<QGraphicsTextItem *> listLabel;
@@ -70,6 +77,8 @@ private:
     Anime *anime;
     QComboBox *combo;
     QPen _pen;
+    bool checkCopy;
+    bool checkSub;
 };
 
 #endif // SERVICE_H
