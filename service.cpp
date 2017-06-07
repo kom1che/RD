@@ -65,7 +65,6 @@ void Service::setFpl(){
     for (size_t i=0; i<12; i++) {
         QString searchName;
         searchName = QString("W")+QString::number(i);
-        //double SCALE = 2.38;
         anime->setScaleX(2.38);
         int valueX = FPL->getxCoor().value(searchName)*anime->getScaleX();
         int valueY = FPL->getyCoor().value(searchName)*anime->getScaleX();
@@ -97,7 +96,6 @@ void Service::setFpl(){
     }
     for (size_t j=0, m=valuex.size()-1;j<m; j++) {
         line = new QGraphicsLineItem;
-        //QPen _pen;
         _pen.setColor("lightskyblue");
         _pen.setWidth(2);
         _pen.setStyle(Qt::DashLine);
@@ -108,20 +106,9 @@ void Service::setFpl(){
         //scene->addItem(line);
     }
     ui->runBtn->setEnabled(true);
-    //QObject::connect(ui->runBtn, SIGNAL(clicked(bool)), this, SLOT(setSim()));
-}
-
-void Service::setSim(){
-    ui->pauseBtn->setEnabled(true);
-    ui->genBtn->setEnabled(false);
-    ui->checkHigh->setEnabled(true);
-    ui->checkLow->setEnabled(true);
-    ui->runBtn->setEnabled(false);
 }
 
 void Service::move(){
-    //anime = new Anime();
-    //anime->setStep(1);
     anime->setTres(500);
     anime->setXY(valuex, valuey);
     anime->setAlt(valuealt);
@@ -160,50 +147,39 @@ void Service::copyFpl(QList<int> AA, QList<int> BB, QList<int> CC, QList<bool> D
 void Service::RD(){
     if (checkCopy == false){
     copyFpl(valuex, valuey, valuealt, valuemandat);
-    //qDebug() << anime->getIter();
-    }
-    for (size_t i=0; i<copyx.size(); i++){
-        //qDebug() << "x" << copyx[i] << "y" << copyy[i] << "alt" << copyalt[i] << "Mandat" << copymandat[i];
+    } else {
+      //copyFpl(copyx, copyy, copyalt, copymandat);THINK
     }
     int current = anime->getIter();
     for (size_t j=current+1; j<copyx.size()-4; j++){
         double p = setP(2);
-        //qDebug() << "j" << j << "p" << p;
+        qDebug() << "j" << j << "p" << p;
         if (p < 0.25) {
            qDebug() << "j" << j << "p" << p << "stop";
            ui->acceptBtn->setEnabled(true);
            ui->rejectBtn->setEnabled(true);
            ui->submitBtn->setEnabled(false);
            checkSub = true;
+           copyx.removeAt(j);
+           copyy.removeAt(j);
+           copyalt.removeAt(j);
+           copymandat.removeAt(j);
            break;
         }
     }
     if (checkSub == false) {
         qDebug() << "Oops!";
-        checkSub = false;
+        ui->Infolabel->setText("Flight plan has not been modified");
+        ui->acceptBtn->setEnabled(false);
+        ui->rejectBtn->setEnabled(false);
+        if (current<copyx.size()-4){
+            checkSub = false;
+        }else{
+            checkSub = true;
+            //ui->submitBtn->setEnabled(false);
+        }
+
     }
-//    if (anime->getIter()>=8){
-//        timerRD->stop();
-//        //qDebug() << "Service TimerRD stops";
-//    }else {
-//        int current = anime->getIter();
-//        //qDebug() << "current" << current << "next" << next;
-//        for (size_t j=current+1; j<copyx.size()-4; j++){
-//            double p = setP(2);
-//            //qDebug() << "j" << j << "p" << p;
-//            if (p < 0.25) {
-//                qDebug() << "j" << j << "p" << p << "stop";
-//                timerRD->stop();
-//                ui->acceptBtn->setEnabled(true);
-//                ui->rejectBtn->setEnabled(true);
-//                ui->submitBtn->setEnabled(false);
-//                checkSub = true;
-//                break;
-//            }
-//        }
-//    }
-
-
 }
 
 void Service::pause(){
@@ -232,8 +208,6 @@ void Service::pause(){
 
 void Service::speedUp(){
     if (keySpeed==true){
-//        qDebug() << "keySpeed" << keySpeed;
-//        qDebug() << "Tres" << anime->getTres();
         ui->checkLow->setEnabled(true);
         anime->setTres(anime->getTres()*2);
         kSpeed=0;
@@ -243,11 +217,7 @@ void Service::speedUp(){
         keySpeed=false;
         anime->clickResume();
         startTimers();
-//        qDebug() << "keySpeed" << keySpeed;
-//        qDebug() << "Tres" << anime->getTres();
     }else {
-//        qDebug() << "keySpeed" << keySpeed;
-//        qDebug() << "Tres" << anime->getTres();
         anime->setCheckSpeed(true);
         ui->checkLow->setEnabled(false);
         anime->setTres(anime->getTres()/2);
@@ -259,15 +229,11 @@ void Service::speedUp(){
         anime->clickResume();
         startTimers();
         anime->setCheckSpeed(false);
-//        qDebug() << "keySpeed" << keySpeed;
-//        qDebug() << "Tres" << anime->getTres();
     }
 }
 
 void Service::speedLow(){
     if (keySpeed==true){
-//        qDebug() << "keySpeed" << keySpeed;
-//        qDebug() << "Tres" << anime->getTres();
         ui->checkHigh->setEnabled(true);
         anime->setTres(anime->getTres()/2);
         kSpeed=0;
@@ -277,11 +243,7 @@ void Service::speedLow(){
         keySpeed=false;
         anime->clickResume();
         startTimers();
-//        qDebug() << "keySpeed" << keySpeed;
-//        qDebug() << "Tres" << anime->getTres();
     }else {
-//        qDebug() << "keySpeed" << keySpeed;
-//        qDebug() << "Tres" << anime->getTres();
         anime->setCheckSpeed(true);
         ui->checkHigh->setEnabled(false);
         anime->setTres(anime->getTres()*2);
@@ -293,8 +255,6 @@ void Service::speedLow(){
         anime->clickResume();
         startTimers();
         anime->setCheckSpeed(false);
-//        qDebug() << "keySpeed" << keySpeed;
-//        qDebug() << "Tres" << anime->getTres();
     }
 }
 
@@ -349,10 +309,8 @@ void Service:: startCount(){
     QTime time (h,m,s);
     QString str;
     str=time.toString("hh:mm:ss");
-    //qDebug() << "syn_pre" << syn_pre;
     if (syn_pre == anime->getSyn()){
        ui->timerLabal->setText(str);
-       //qDebug() << str;
        s++;
        if (syn_pre == false){
            syn_pre = true;
@@ -360,7 +318,6 @@ void Service:: startCount(){
            syn_pre = false;
        }
     }
-    //s++;
     if (kSpeed==0){
        timers->start(anime->getTres());
     } else if (kSpeed==1){
@@ -374,7 +331,6 @@ void Service:: startCount(){
     }
     if (anime->getKey() == true){
         timers->stop();
-        //qDebug() << "Service Timer stops";
         ui->genBtn->setEnabled(true);
         ui->pauseBtn->setEnabled(false);
         ui->checkHigh->setEnabled(false);
@@ -386,12 +342,12 @@ void Service:: startCount(){
         h=m=s=0;
         ui->timerLabal->setText(str);
     }
-    if (anime->getIter()>=1 && anime->getIter()<10 && checkSub == false){
+    if (anime->getIter()>=1 && anime->getIter()<anime->getSize()-1 && checkSub == false){
         ui->submitBtn->setEnabled(true);
     }else{
         ui->submitBtn->setEnabled(false);
-        ui->acceptBtn->setEnabled(false);
-        ui->rejectBtn->setEnabled(false);
+        //ui->acceptBtn->setEnabled(false);
+        //ui->rejectBtn->setEnabled(false);
     }
 }
 

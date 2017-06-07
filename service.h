@@ -27,7 +27,6 @@ public:
     ~Service();
 public slots:
     void setFpl();
-    void setSim();
     void move();
     void copyFpl(QList<int> AA, QList<int> BB, QList<int> CC, QList<bool> DD);
     void RD();
