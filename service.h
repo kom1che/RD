@@ -82,6 +82,7 @@ private:
     bool checkCopy;
     bool checkSub;
     int jet;
+    int checkAR;
 };
 
 #endif // SERVICE_H

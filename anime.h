@@ -40,6 +40,7 @@ public slots:
     void setAlt(bool v);
     double getTime();
     void setScaleX(double v);
+    void removeXY(int v);
     double getScaleX();
 private:
     QGraphicsLineItem *line2;

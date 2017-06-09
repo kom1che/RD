@@ -30,7 +30,7 @@ Service::Service(QWidget *parent) :
     times=0;
     keySpeed = checkCopy = checkSub =false;
     syn_pre = true;
-    kSpeed=0;
+    kSpeed = checkAR = 0;
     h=m=0;
     s=1;
     QObject::connect(ui->genBtn, SIGNAL(clicked(bool)), this, SLOT(setFpl()));
@@ -147,13 +147,14 @@ void Service::copyFpl(QList<int> AA, QList<int> BB, QList<int> CC, QList<bool> D
 }
 
 void Service::RD(){
+    checkAR=1;
 //    if (checkCopy == false){
     copyFpl(valuex, valuey, valuealt, valuemandat);
 //    } else {
 //      //copyFpl(copyx, copyy, copyalt, copymandat);
 //    }
     int current = anime->getIter();
-    for (size_t j=current+2; j<copyx.size()-3; j++){
+    for (size_t j=current+2; j<copyx.size()-4; j++){
         double p = setP(2);
         if (p < 0.25) {
            ui->acceptBtn->setEnabled(true);
@@ -200,12 +201,37 @@ void Service::RD(){
 }
 
 void Service::Accept(){
-    qDebug() << "Accept";
-
+    checkAR = 0;
+    QPen penalt;
+    penalt.setColor("lightskyblue");
+    penalt.setWidth(2);
+    penalt.setStyle(Qt::DashLine);
+    scene->removeItem(listLine[jet-1]);
+    scene->removeItem(listLine[jet]);
+    scene->removeItem(listPoint[jet]);
+    scene->removeItem(listLabel[jet]);
+    scene->removeItem(copyLine);
+    valuex.removeAt(jet);
+    valuey.removeAt(jet);
+    valuealt.removeAt(jet);
+    valuemandat.removeAt(jet);
+    anime->removeXY(jet);
+    listPoint.removeAt(jet);
+    listLabel.removeAt(jet);
+    listLine.replace(jet, copyLine);
+    listLine.removeAt(jet+1);
+    listLine[jet]->setPen(penalt);
+    scene->addItem(listLine[jet]);
+    ui->submitBtn->setEnabled(true);
+    copyx.clear();
+    copyy.clear();
+    copyalt.clear();
+    copymandat.clear();
+    checkSub = false;
 }
 
 void Service::Reject(){
-    qDebug() << "Reject";
+    checkAR = 0;
     scene->removeItem(copyLine);
     QPen penalt;
     penalt.setColor("lightskyblue");
@@ -218,6 +244,8 @@ void Service::Reject(){
     copyalt.clear();
     copymandat.clear();
     ui->submitBtn->setEnabled(true);
+    ui->rejectBtn->setEnabled(false);
+    ui->acceptBtn->setEnabled(false);
     checkSub = false;
 }
 
@@ -383,10 +411,12 @@ void Service:: startCount(){
     }
     if (anime->getIter()>=1 && anime->getIter()<anime->getSize()-3 && checkSub == false){
         ui->submitBtn->setEnabled(true);
-    }else{
+    }else if (anime->getIter()>anime->getSize()-4 && checkAR == 1){
+        ui->rejectBtn->setEnabled(false);
+        ui->acceptBtn->setEnabled(false);
+        Reject();
+    }else {
         ui->submitBtn->setEnabled(false);
-        //ui->acceptBtn->setEnabled(false);
-        //ui->rejectBtn->setEnabled(false);
     }
 }
 

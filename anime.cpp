@@ -163,6 +163,11 @@ void Anime::setScaleX(double v){
     SCALEX = v;
 }
 
+void Anime::removeXY(int v){
+    xx.removeAt(v);
+    yy.removeAt(v);
+}
+
 bool Anime::getPause(){
 return pause;
 }
