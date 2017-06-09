@@ -30,6 +30,8 @@ public slots:
     void move();
     void copyFpl(QList<int> AA, QList<int> BB, QList<int> CC, QList<bool> DD);
     void RD();
+    void Accept();
+    void Reject();
     void pause();
     void speedUp();
     void speedLow();
@@ -79,6 +81,7 @@ private:
     QPen _pen;
     bool checkCopy;
     bool checkSub;
+    int jet;
 };
 
 #endif // SERVICE_H

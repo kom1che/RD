@@ -35,6 +35,8 @@ Service::Service(QWidget *parent) :
     s=1;
     QObject::connect(ui->genBtn, SIGNAL(clicked(bool)), this, SLOT(setFpl()));
     QObject::connect(ui->submitBtn, SIGNAL(clicked(bool)), this, SLOT(RD()));
+    QObject::connect(ui->acceptBtn, SIGNAL(clicked(bool)), this, SLOT(Accept()));
+    QObject::connect(ui->rejectBtn, SIGNAL(clicked(bool)), this, SLOT(Reject()));
     QObject::connect(ui->runBtn, SIGNAL(clicked(bool)), this, SLOT(move()));
     QObject::connect(ui->pauseBtn, SIGNAL(clicked(bool)), this, SLOT(pause()));
     QObject::connect(ui->checkHigh, SIGNAL(toggled(bool)), this, SLOT(speedUp()));
@@ -141,24 +143,24 @@ void Service::copyFpl(QList<int> AA, QList<int> BB, QList<int> CC, QList<bool> D
         foreach (bool man, DD) {
             copymandat.append(man);
         }
-        checkCopy = true;
+        //checkCopy = true;
 }
 
 void Service::RD(){
-    if (checkCopy == false){
+//    if (checkCopy == false){
     copyFpl(valuex, valuey, valuealt, valuemandat);
-    } else {
-      //copyFpl(copyx, copyy, copyalt, copymandat);THINK
-    }
+//    } else {
+//      //copyFpl(copyx, copyy, copyalt, copymandat);
+//    }
     int current = anime->getIter();
-    for (size_t j=current+2; j<copyx.size()-4; j++){
+    for (size_t j=current+2; j<copyx.size()-3; j++){
         double p = setP(2);
-        qDebug() << "j" << j << "p" << p;
         if (p < 0.25) {
            ui->acceptBtn->setEnabled(true);
            ui->rejectBtn->setEnabled(true);
            ui->submitBtn->setEnabled(false);
            checkSub = true;
+           jet = j;
            copyx.removeAt(j);
            copyy.removeAt(j);
            copyalt.removeAt(j);
@@ -187,10 +189,36 @@ void Service::RD(){
             checkSub = false;
         }else{
             checkSub = true;
-            //ui->submitBtn->setEnabled(false);
         }
-
+    }   else {
+        ui->Infolabel->setText("");
     }
+    copyx.clear();
+    copyy.clear();
+    copyalt.clear();
+    copymandat.clear();
+}
+
+void Service::Accept(){
+    qDebug() << "Accept";
+
+}
+
+void Service::Reject(){
+    qDebug() << "Reject";
+    scene->removeItem(copyLine);
+    QPen penalt;
+    penalt.setColor("lightskyblue");
+    penalt.setWidth(2);
+    penalt.setStyle(Qt::DashLine);
+    listLine[jet-1]->setPen(penalt);
+    listLine[jet]->setPen(penalt);
+    copyx.clear();
+    copyy.clear();
+    copyalt.clear();
+    copymandat.clear();
+    ui->submitBtn->setEnabled(true);
+    checkSub = false;
 }
 
 void Service::pause(){
@@ -353,7 +381,7 @@ void Service:: startCount(){
         h=m=s=0;
         ui->timerLabal->setText(str);
     }
-    if (anime->getIter()>=1 && anime->getIter()<anime->getSize()-1 && checkSub == false){
+    if (anime->getIter()>=1 && anime->getIter()<anime->getSize()-3 && checkSub == false){
         ui->submitBtn->setEnabled(true);
     }else{
         ui->submitBtn->setEnabled(false);
