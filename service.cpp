@@ -151,11 +151,10 @@ void Service::RD(){
       //copyFpl(copyx, copyy, copyalt, copymandat);THINK
     }
     int current = anime->getIter();
-    for (size_t j=current+1; j<copyx.size()-4; j++){
+    for (size_t j=current+2; j<copyx.size()-4; j++){
         double p = setP(2);
         qDebug() << "j" << j << "p" << p;
         if (p < 0.25) {
-           qDebug() << "j" << j << "p" << p << "stop";
            ui->acceptBtn->setEnabled(true);
            ui->rejectBtn->setEnabled(true);
            ui->submitBtn->setEnabled(false);
@@ -164,11 +163,23 @@ void Service::RD(){
            copyy.removeAt(j);
            copyalt.removeAt(j);
            copymandat.removeAt(j);
+           QPen penalt;
+           penalt.setColor(Qt::darkYellow);
+           penalt.setWidth(2);
+           penalt.setStyle(Qt::DashDotDotLine);
+           listLine[j-1]->setPen(penalt);
+           listLine[j]->setPen(penalt);
+           penalt.setColor(Qt::red);
+           penalt.setStyle(Qt::DotLine);
+           penalt.setWidth(2.5);
+           copyLine = new QGraphicsLineItem;
+           copyLine->setPen(penalt);
+           copyLine->setLine(copyx[j-1]+7, copyy[j-1]+7, copyx[j]+7, copyy[j]+7);
+           scene->addItem(copyLine);
            break;
         }
     }
     if (checkSub == false) {
-        qDebug() << "Oops!";
         ui->Infolabel->setText("Flight plan has not been modified");
         ui->acceptBtn->setEnabled(false);
         ui->rejectBtn->setEnabled(false);

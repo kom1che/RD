@@ -48,6 +48,7 @@ private:
     QGraphicsPixmapItem *chart;
     QGraphicsPixmapItem *aircraftIcon;
     QGraphicsLineItem *line;
+    QGraphicsLineItem *copyLine;
     QList<int> valuex;
     QList<int> valuey;
     QList<int> valuealt;
