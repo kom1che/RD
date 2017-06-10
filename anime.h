@@ -41,6 +41,7 @@ public slots:
     double getTime();
     void setScaleX(double v);
     void removeXY(int v);
+    void removeALT(int v);
     double getScaleX();
 private:
     QGraphicsLineItem *line2;

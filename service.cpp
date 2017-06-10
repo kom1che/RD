@@ -143,6 +143,9 @@ void Service::copyFpl(QList<int> AA, QList<int> BB, QList<int> CC, QList<bool> D
         foreach (bool man, DD) {
             copymandat.append(man);
         }
+//        for (size_t j=0; j<listLine.size()-1; j++) {
+//            qDebug() << j <<listLine[j]->line().x1() << listLine[j]->line().x2();
+//        }
         //checkCopy = true;
 }
 
@@ -162,6 +165,7 @@ void Service::RD(){
            ui->submitBtn->setEnabled(false);
            checkSub = true;
            jet = j;
+           //qDebug() << "jet" << jet << anime->getIter();
            copyx.removeAt(j);
            copyy.removeAt(j);
            copyalt.removeAt(j);
@@ -178,6 +182,7 @@ void Service::RD(){
            copyLine = new QGraphicsLineItem;
            copyLine->setPen(penalt);
            copyLine->setLine(copyx[j-1]+7, copyy[j-1]+7, copyx[j]+7, copyy[j]+7);
+           //qDebug() << "copyline in RD" <<copyLine->line().x1() << copyLine->line().x2();
            scene->addItem(copyLine);
            break;
         }
@@ -206,28 +211,36 @@ void Service::Accept(){
     penalt.setColor("lightskyblue");
     penalt.setWidth(2);
     penalt.setStyle(Qt::DashLine);
+    //qDebug() << "size" << listLine.size();
     scene->removeItem(listLine[jet-1]);
     scene->removeItem(listLine[jet]);
     scene->removeItem(listPoint[jet]);
     scene->removeItem(listLabel[jet]);
     scene->removeItem(copyLine);
+    //qDebug() << "size before" << valuex.size();
     valuex.removeAt(jet);
+    //qDebug() << "size after" << valuex.size();
     valuey.removeAt(jet);
     valuealt.removeAt(jet);
     valuemandat.removeAt(jet);
     anime->removeXY(jet);
+    anime->removeALT(jet);
     listPoint.removeAt(jet);
     listLabel.removeAt(jet);
+    //qDebug() << "copyline in Accept" <<copyLine->line().x1() << copyLine->line().x2();
     listLine.replace(jet, copyLine);
-    listLine.removeAt(jet+1);
-    listLine[jet]->setPen(penalt);
-    scene->addItem(listLine[jet]);
+    listLine.removeAt(jet-1);
+    copyLine->setPen(penalt);
+    scene->addItem(copyLine);
     ui->submitBtn->setEnabled(true);
+    ui->rejectBtn->setEnabled(false);
+    ui->acceptBtn->setEnabled(false);
     copyx.clear();
     copyy.clear();
     copyalt.clear();
     copymandat.clear();
     checkSub = false;
+    //qDebug() << "size 2" << listLine.size();
 }
 
 void Service::Reject(){
@@ -333,23 +346,6 @@ void Service::comboAct()
         anime->setAlt(true);
     }
     combo->deleteLater();
-
-
-
-//    scene->removeItem(listLine[4]);
-//    scene->removeItem(listPoint[5]);
-//    scene->removeItem(listPoint[4]);
-//    scene->removeItem(listLabel[5]);
-//    scene->removeItem(listLabel[4]);
-//    _pen.setColor("green");
-//    _pen.setStyle(Qt::DotLine);
-//    listLine[4]->setPen(_pen);
-//    scene->addItem(listLine[4]);
-
-
-
-
-
 }
 
 void Service::speedChan(int v) {
@@ -417,6 +413,14 @@ void Service:: startCount(){
         Reject();
     }else {
         ui->submitBtn->setEnabled(false);
+    }
+    if (anime->getIter() >= jet-1 && jet != 0 && checkSub == true) {
+        //qDebug() << "hi" << anime->getIter() << jet;
+        Reject();
+        ui->submitBtn->setEnabled(true);
+        ui->rejectBtn->setEnabled(false);
+        ui->acceptBtn->setEnabled(false);
+        checkSub = false;
     }
 }
 

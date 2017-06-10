@@ -168,6 +168,10 @@ void Anime::removeXY(int v){
     yy.removeAt(v);
 }
 
+void Anime::removeALT(int v){
+    altitude.removeAt(v);
+}
+
 bool Anime::getPause(){
 return pause;
 }
