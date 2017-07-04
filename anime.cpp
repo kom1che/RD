@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QPen>
 #include "service.h"
+//Hi! Its me on 04 July 2017!!!
 
 
 Anime::Anime(QGraphicsPathItem *parent) {
