@@ -21,9 +21,9 @@ Service::Service(QWidget *parent) :
     scene = new QGraphicsScene(this);
     scene->setSceneRect(-20,-20,310,310);
     chart = new QGraphicsPixmapItem();
-    chart->setPixmap(QPixmap(":/images/chart.png"));
-    chart->setPos(-60,-110);
-    chart->setScale(0.24);
+    chart->setPixmap(QPixmap(":/images/bg_f_Qt.jpg"));
+    chart->setPos(-300,-290);
+    chart->setScale(0.53);
     scene->addItem(chart);
     ui->Viewer->setScene(scene);
     PAUSE = false;
@@ -57,10 +57,10 @@ void Service::setFpl(){
     listPoint.clear();
     listLabel.clear();
     chart = new QGraphicsPixmapItem();
-    chart->setPixmap(QPixmap(":/images/chart.png"));
-    chart->setPos(-60,-110);
-    chart->setScale(0.24);
-    chart->setOpacity(0.55);
+    chart->setPixmap(QPixmap(":/images/bg_f_Qt.jpg"));
+    chart->setPos(-300,-290);
+    chart->setScale(0.53);
+    chart->setOpacity(0.35);
     scene->addItem(chart);
     originFpl *FPL = new originFpl();
     anime = new Anime();
